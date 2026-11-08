@@ -1,0 +1,16 @@
+name: r31-egress-readout
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  readout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: GET diagnostic Worker (normal + bad=1)
+        env:
+          PROBE_URL: "https://dsh-ilink-egress-probe.3753318894.workers.dev/"
+        run: node probe.mjs
